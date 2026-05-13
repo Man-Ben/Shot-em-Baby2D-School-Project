@@ -11,8 +11,10 @@ public class Spawner : MonoBehaviour
     IEnumerator SpawnIntervals()
     {
 
-        while(true)
+        while(UIManager.Instance.gameState != UIManager.GameState.GameOver)
         {
+            yield return new WaitUntil(() => UIManager.Instance.gameState == UIManager.GameState.Neutral);
+            
             GameObject gotObject = Pool.Instance.GivePooledObject(Pool.PoolState.PoolObstacles);
 
             if(gotObject != null)

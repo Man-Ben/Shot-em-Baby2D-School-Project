@@ -6,8 +6,12 @@ public class Projectile : MonoBehaviour
 
     void Update()
     {
-        transform.Translate(Vector2.up * projectileSpeed * Time.deltaTime);
-        ResetPosition();
+        if(UIManager.Instance.gameState != UIManager.GameState.Paused && UIManager.Instance.gameState != UIManager.GameState.GameOver)
+        {
+            transform.Translate(Vector2.up * projectileSpeed * Time.deltaTime);
+            ResetPosition();
+        }
+        
     }
 
     void OnTriggerEnter2D(Collider2D collision)
@@ -17,6 +21,7 @@ public class Projectile : MonoBehaviour
         
         collision.gameObject.SetActive(false);
         gameObject.SetActive(false);
+        UIManager.Instance.AddScore();
     }
 
     void ResetPosition()
@@ -26,6 +31,7 @@ public class Projectile : MonoBehaviour
         if(transform.position.y >= limit)
         {
             gameObject.SetActive(false);
+            
         }
     }
 }

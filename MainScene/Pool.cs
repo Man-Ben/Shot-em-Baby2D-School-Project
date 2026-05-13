@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Pool : MonoBehaviour
 {
-    public static Pool Instance;
 
     public List<GameObject> pooledObstacles;
     public List<GameObject> pooledProjectiles;
@@ -18,6 +17,8 @@ public class Pool : MonoBehaviour
         PoolProjectile,
         PoolObstacles
     }
+
+    public static Pool Instance {get; private set;}
 
     void Awake()
     {
@@ -48,7 +49,7 @@ public class Pool : MonoBehaviour
         }   
     }
 
-    GameObject GetRandomPooledObstacle()
+    GameObject GetRandomPooled()
     {
         int index = Random.Range(0, pooledObstacles.Count);
         if(!pooledObstacles[index].activeSelf)
@@ -60,19 +61,25 @@ public class Pool : MonoBehaviour
         return null;
     }
 
+    GameObject GetPooled()
+    {
+        for(int i = 0; i < 10; i++)
+            if(!pooledProjectiles[i].activeSelf)
+                return pooledProjectiles[i];
+
+        return null;
+    }
+
     public GameObject GivePooledObject(PoolState poolState)
     {
 
         switch(poolState)
         {
             case PoolState.PoolObstacles:
-                return GetRandomPooledObstacle();
+                return GetRandomPooled();
             
             case PoolState.PoolProjectile:
-                for(int i = 0; i < 10; i++)
-                    if(!pooledProjectiles[i].activeSelf)
-                        return pooledProjectiles[i];
-            break;
+                return GetPooled();
         }
 
         return null;

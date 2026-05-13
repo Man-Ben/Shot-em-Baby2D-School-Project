@@ -20,7 +20,8 @@ public class BackgroundManager : MonoBehaviour
 
     void Update()
     {
-        Moving();
+        if(UIManager.Instance.gameState != UIManager.GameState.Paused && UIManager.Instance.gameState != UIManager.GameState.GameOver)
+            Moving();
     }
 
     void Moving()

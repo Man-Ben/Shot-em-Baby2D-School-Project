@@ -1,24 +1,18 @@
-using System;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 
 public class PlayerControllerScript : MonoBehaviour
 {
     [SerializeField] float playerSpeed;
-    private Rigidbody2D playerRb;
-
-    void Awake()
-    {
-        playerRb = gameObject.GetComponent<Rigidbody2D>();
-    }
-
     
     void Update()
     {
-        MovePlayer();
-        Shoot();
+        if(UIManager.Instance.gameState != UIManager.GameState.Paused && UIManager.Instance.gameState != UIManager.GameState.GameOver)
+        {
+            MovePlayer();
+            Shoot();
+        }
+        
     }
 
     void MovePlayer()
@@ -41,5 +35,12 @@ public class PlayerControllerScript : MonoBehaviour
             }
             
         } 
+    }
+
+    void OnTriggerEnter2D(Collider2D collider)
+    {
+        if(UIManager.Instance.gameState != UIManager.GameState.Paused && UIManager.Instance.gameState != UIManager.GameState.GameOver)
+            if(collider.CompareTag("UFO") || collider.CompareTag("Meteor"))
+                UIManager.Instance.InactivateHealth();
     }
 }
