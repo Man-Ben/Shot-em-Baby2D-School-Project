@@ -18,6 +18,9 @@ public class Projectile : MonoBehaviour
     {
         if(collision.CompareTag("Player"))
             return;
+
+        if(collision.gameObject.transform.position.x > 15)
+            return;
         
         collision.gameObject.SetActive(false);
         gameObject.SetActive(false);
@@ -26,7 +29,7 @@ public class Projectile : MonoBehaviour
 
     void ResetPosition()
     {
-        float limit = 17;
+        float limit = 15;
 
         if(transform.position.y >= limit)
         {

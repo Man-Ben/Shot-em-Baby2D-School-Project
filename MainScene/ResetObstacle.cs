@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class ResetObstacle : MonoBehaviour
@@ -8,7 +9,9 @@ public class ResetObstacle : MonoBehaviour
 
         if(transform.position.y <= limit)
         {
-            UIManager.Instance.ReductScore();
+            if(UIManager.Instance.gameState != UIManager.GameState.GameOver && UIManager.Instance.gameState != UIManager.GameState.Paused)
+                UIManager.Instance.ReductScore();
+
             transform.position = new Vector2(0, 17);
             gameObject.SetActive(false);
         }

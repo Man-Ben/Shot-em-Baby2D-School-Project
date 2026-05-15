@@ -1,5 +1,8 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+using UnityEditor;
+using UnityEditor.Actions;
 
 public class MainUI : MonoBehaviour
 {
@@ -34,14 +37,45 @@ public class MainUI : MonoBehaviour
 
         Instance = this;
 
-        DontDestroyOnLoad(gameObject);
-
         AddListenerToButtons();
     }
 
     void AddListenerToButtons()
     {
-        
+        playButton.onClick.AddListener(OnPlayButtonPressed);
+        quitButton.onClick.AddListener(OnQuitButtonPressed);
+        backButton.onClick.AddListener(OnBackButtonPressed);
+        easyButton.onClick.AddListener(() => OnDifficultyButtonPressed(Difficulty.Easy));
+        normalButton.onClick.AddListener(() => OnDifficultyButtonPressed(Difficulty.Normal));
+        hardButton.onClick.AddListener(() => OnDifficultyButtonPressed(Difficulty.Hard));
+    }
+
+    void OnPlayButtonPressed()
+    {
+        startMenu.SetActive(false);
+        difficultyMenu.SetActive(true);
+    }
+
+    void OnQuitButtonPressed()
+    {
+        #if UNITY_EDITOR
+            EditorApplication.ExitPlaymode();
+        #else
+            Application.Quit();
+        #endif
+    }
+
+    void OnBackButtonPressed()
+    {
+        difficultyMenu.SetActive(false);
+        startMenu.SetActive(true);
+    }
+
+    void OnDifficultyButtonPressed(Difficulty difficultyParameter)
+    {
+        difficulty = difficultyParameter;
+
+        SceneManager.LoadScene(1);
     }
 
 }

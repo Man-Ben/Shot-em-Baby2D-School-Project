@@ -27,9 +27,10 @@ public class UIManager : MonoBehaviour
     public GameState gameState {get; private set;}
     public static UIManager Instance {get; private set;}
 
-    int hpCount = 2;
+    int remainingHP;
+    int totalHP;
     int score = 0;
-
+    int scoreToAdd;
     void Awake()
     {
         if(Instance != null)
@@ -41,8 +42,9 @@ public class UIManager : MonoBehaviour
         Instance = this;
 
         AddListenerToButtons();
+        SetDifficulty();
 
-        if(hpCount != 0)
+        if(remainingHP != 0)
             SetHealth();
     }
 
@@ -61,9 +63,32 @@ public class UIManager : MonoBehaviour
         restartButton.onClick.AddListener(OnRestartButtonPressed);
     }
 
+    void SetDifficulty()
+    {
+        switch(MainUI.Instance.difficulty)
+        {
+            case MainUI.Difficulty.Easy:
+            totalHP = 3;
+            scoreToAdd = 20;
+            break;
+
+            case MainUI.Difficulty.Normal:
+            totalHP = 2;
+            scoreToAdd = 10;
+            break;
+
+            case MainUI.Difficulty.Hard:
+            totalHP = 1;
+            scoreToAdd = 5;
+            break;
+        }
+
+        remainingHP = totalHP - 1;
+    }
+
     public void AddScore()
     {
-        score += 20;
+        score += scoreToAdd;
 
         scoreText.text = $"Score: {score}";
     }
@@ -75,27 +100,9 @@ public class UIManager : MonoBehaviour
         scoreText.text = $"Score: {score}";
     }
 
-    void GameOverMessage()
-    {
-        gameOverMenu.SetActive(true);
-        quitButton.gameObject.SetActive(true);
-    }
-
-    void OnEscPressed()
-    {
-        if(Input.GetKeyDown(KeyCode.Escape))
-        {
-            gameState = GameState.Paused;
-
-            pausedMenu.SetActive(true);
-            quitButton.gameObject.SetActive(true);
-        }
-            
-    }
-
     void SetHealth()
-    {
-        for(int i = 0; i < 3; i++)
+    {           
+        for(int i = 0; i < totalHP; i++)
         {
             healthPoints[i].gameObject.SetActive(true);
         }
@@ -103,9 +110,11 @@ public class UIManager : MonoBehaviour
 
     public void InactivateHealth()
     {
-        if(hpCount == 0)
+        healthPoints[remainingHP].gameObject.SetActive(false);
+        remainingHP--;
+
+        if(remainingHP == -1)
         {
-            healthPoints[hpCount].gameObject.SetActive(false);
 
             GameOverMessage();
 
@@ -113,11 +122,27 @@ public class UIManager : MonoBehaviour
 
             return;
         }
-
-        healthPoints[hpCount].gameObject.SetActive(false);
-        hpCount--;
-
     }
+
+
+    void GameOverMessage()
+        {
+            gameOverMenu.SetActive(true);
+            quitButton.gameObject.SetActive(true);
+        }
+
+        void OnEscPressed()
+        {
+            if(Input.GetKeyDown(KeyCode.Escape))
+            {
+                gameState = GameState.Paused;
+
+                pausedMenu.SetActive(true);
+                quitButton.gameObject.SetActive(true);
+            }
+        }
+
+
 
     void OnContinueButtonPressed()
     {
