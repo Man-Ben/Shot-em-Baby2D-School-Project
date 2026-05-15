@@ -2,7 +2,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEditor;
-using UnityEditor.Actions;
 
 public class MainUI : MonoBehaviour
 {
