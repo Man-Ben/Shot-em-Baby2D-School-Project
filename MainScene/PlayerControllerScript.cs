@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class PlayerControllerScript : MonoBehaviour
 {
-    [SerializeField] float playerSpeed;
     
     void Update()
     {
@@ -17,9 +16,9 @@ public class PlayerControllerScript : MonoBehaviour
 
     void MovePlayer()
     {
-        float input = Input.GetAxis("Horizontal");
+        float input = Camera.main.ScreenToWorldPoint(Input.mousePosition).x;//Input.GetAxis("Horizontal");
 
-            transform.Translate(Vector2.right * playerSpeed * input * Time.deltaTime);
+            transform.position = new Vector2(input, -3.65f);
     }
 
     void Shoot()
