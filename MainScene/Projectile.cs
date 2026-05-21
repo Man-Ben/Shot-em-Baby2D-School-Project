@@ -1,3 +1,5 @@
+using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Projectile : MonoBehaviour
@@ -34,7 +36,6 @@ public class Projectile : MonoBehaviour
         if(transform.position.y >= limit)
         {
             gameObject.SetActive(false);
-            
         }
     }
 }

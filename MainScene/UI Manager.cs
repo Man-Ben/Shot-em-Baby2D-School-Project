@@ -53,7 +53,11 @@ public class UIManager : MonoBehaviour
         OnEscPressed();
 
         if(score == -100)
+        {
             GameOverMessage();
+            gameState = GameState.GameOver;
+        }
+            
     }
 
     void AddListenerToButtons()
@@ -126,10 +130,10 @@ public class UIManager : MonoBehaviour
 
 
     void GameOverMessage()
-        {
-            gameOverMenu.SetActive(true);
-            quitButton.gameObject.SetActive(true);
-        }
+    {
+        gameOverMenu.SetActive(true);
+        quitButton.gameObject.SetActive(true);
+    }
 
         void OnEscPressed()
         {

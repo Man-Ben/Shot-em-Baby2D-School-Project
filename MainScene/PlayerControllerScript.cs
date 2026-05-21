@@ -16,9 +16,9 @@ public class PlayerControllerScript : MonoBehaviour
 
     void MovePlayer()
     {
-        float input = Camera.main.ScreenToWorldPoint(Input.mousePosition).x;//Input.GetAxis("Horizontal");
+        float input = Camera.main.ScreenToWorldPoint(Input.mousePosition).x;
 
-            transform.position = new Vector2(input, -3.65f);
+            transform.position = new Vector2(input, -3f);
     }
 
     void Shoot()
@@ -39,7 +39,7 @@ public class PlayerControllerScript : MonoBehaviour
     void OnTriggerEnter2D(Collider2D collider)
     {
         if(UIManager.Instance.gameState != UIManager.GameState.Paused && UIManager.Instance.gameState != UIManager.GameState.GameOver)
-            if(collider.CompareTag("UFO") || collider.CompareTag("Meteor"))
+            if(collider.CompareTag("UFO") || collider.CompareTag("Meteor") || collider.CompareTag("Bird"))
                 UIManager.Instance.InactivateHealth();
     }
 }

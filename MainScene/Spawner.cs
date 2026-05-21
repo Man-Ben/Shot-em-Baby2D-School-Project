@@ -28,7 +28,7 @@ public class Spawner : MonoBehaviour
                     gotObject.transform.position = new Vector2(RandomPosition(), 20);
             
 
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSecondsRealtime(1);
         }
     }
 
