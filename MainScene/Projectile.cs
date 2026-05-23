@@ -6,8 +6,11 @@ public class Projectile : MonoBehaviour
 {
     [SerializeField] float projectileSpeed;
 
+    [SerializeField] ParticleSystem explosionParticle;
+
     void Update()
     {
+        
         if(UIManager.Instance.gameState != UIManager.GameState.Paused && UIManager.Instance.gameState != UIManager.GameState.GameOver)
         {
             transform.Translate(Vector2.up * projectileSpeed * Time.deltaTime);
@@ -21,12 +24,20 @@ public class Projectile : MonoBehaviour
         if(collision.CompareTag("Player"))
             return;
 
-        if(collision.gameObject.transform.position.x > 15)
-            return;
-        
+        StartCoroutine(Explosion());
+
         collision.gameObject.SetActive(false);
-        gameObject.SetActive(false);
         UIManager.Instance.AddScore();
+    }
+
+    IEnumerator Explosion()
+    {
+        explosionParticle.Play();
+
+        yield return new WaitForSecondsRealtime(0.1f);        
+
+        gameObject.SetActive(false);
+
     }
 
     void ResetPosition()
