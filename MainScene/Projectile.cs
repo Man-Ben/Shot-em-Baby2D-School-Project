@@ -6,7 +6,6 @@ public class Projectile : MonoBehaviour
 {
     [SerializeField] float projectileSpeed;
 
-    [SerializeField] ParticleSystem explosionParticle;
 
     void Update()
     {
@@ -24,20 +23,15 @@ public class Projectile : MonoBehaviour
         if(collision.CompareTag("Player"))
             return;
 
-        StartCoroutine(Explosion());
+        Explosion.Instance.PlayExplosion(collision.transform.position.x, collision.transform.position.y);
+        
+        if(collision.CompareTag("UFO") || collision.CompareTag("EnemyProjectile"))
+            UIManager.Instance.AddScore(true);
+        else
+            UIManager.Instance.AddScore(false);
 
         collision.gameObject.SetActive(false);
-        UIManager.Instance.AddScore();
-    }
-
-    IEnumerator Explosion()
-    {
-        explosionParticle.Play();
-
-        yield return new WaitForSecondsRealtime(0.1f);        
-
         gameObject.SetActive(false);
-
     }
 
     void ResetPosition()

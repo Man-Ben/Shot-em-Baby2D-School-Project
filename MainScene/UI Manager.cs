@@ -57,7 +57,7 @@ public class UIManager : MonoBehaviour
             GameOverMessage();
             gameState = GameState.GameOver;
         }
-            
+
     }
 
     void AddListenerToButtons()
@@ -90,8 +90,11 @@ public class UIManager : MonoBehaviour
         remainingHP = totalHP - 1;
     }
 
-    public void AddScore()
+    public void AddScore(bool isUFO)
     {
+        if(isUFO)
+            score += scoreToAdd*2;
+        
         score += scoreToAdd;
 
         scoreText.text = $"Score: {score}";
@@ -135,18 +138,16 @@ public class UIManager : MonoBehaviour
         quitButton.gameObject.SetActive(true);
     }
 
-        void OnEscPressed()
+    void OnEscPressed()
+    {
+        if(Input.GetKeyDown(KeyCode.Escape))
         {
-            if(Input.GetKeyDown(KeyCode.Escape))
-            {
-                gameState = GameState.Paused;
+            gameState = GameState.Paused;
 
-                pausedMenu.SetActive(true);
-                quitButton.gameObject.SetActive(true);
-            }
+            pausedMenu.SetActive(true);
+            quitButton.gameObject.SetActive(true);
         }
-
-
+    }
 
     void OnContinueButtonPressed()
     {

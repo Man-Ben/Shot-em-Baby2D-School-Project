@@ -8,7 +8,7 @@ public class ManageObstacle : MonoBehaviour
     
         if(transform.position.y <= limit)
         {
-            if(UIManager.Instance.gameState != UIManager.GameState.GameOver && UIManager.Instance.gameState != UIManager.GameState.Paused)
+            if(UIManager.Instance.gameState != UIManager.GameState.GameOver && UIManager.Instance.gameState != UIManager.GameState.Paused && !gameObject.CompareTag("EnemyProjectile"))
                 UIManager.Instance.ReductScore();
 
             transform.position = new Vector2(0, 17);
