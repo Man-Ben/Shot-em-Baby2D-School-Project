@@ -1,3 +1,7 @@
+/*
+    Ez a script az UFO-kat kezeli. Spawnolás után azonnal lőni kezdenek. 
+*/
+
 using System.Collections;
 using UnityEngine;
 

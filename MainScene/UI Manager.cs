@@ -1,5 +1,5 @@
 /*
-Ez a script az UI-t kezeli, a játék állapotát, a pontszámot és az életet.
+Ez a script ezeli a UI-t játékon belül, a játék állapotát, a pontszámot és az életet.
 */
 
 using UnityEngine;

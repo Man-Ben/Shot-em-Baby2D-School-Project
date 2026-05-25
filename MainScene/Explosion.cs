@@ -1,6 +1,6 @@
 /*
 Ez a script a robbanásokat kezeli, amikor a lövedék eltalálja a célpontot.
-Lejátsza a robbanás habgját és megjeleniti a robbanás effektet a megadott koordinátán.
+Lejátsza a robbanás hangját és megjeleníti a robbanás effektet a megadott koordinátán.
 Ez után visszahelyezi a robbanás effectet a poolba.
 */
 
@@ -13,7 +13,7 @@ public class Explosion : MonoBehaviour
 
     AudioSource audioSource;
 
-    public static Explosion Instance;
+    public static Explosion Instance {get; private set;}
 
     void Awake()
     {
@@ -30,7 +30,7 @@ public class Explosion : MonoBehaviour
 
     public void PlayExplosion(float explosionCoordinatesX, float explosionCoordinatesY)
     {
-        audioSource.PlayOneShot(explosionSound, 0.7f);
+        audioSource.PlayOneShot(explosionSound, 0.4f);
 
         ParticleSystem gotParticle = Pool.Instance.GetExplosion();
 

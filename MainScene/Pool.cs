@@ -1,5 +1,5 @@
 /*
-Létrehozza a pool-okat a megadott objektumokból és mennyiségből.
+Létrehozza a pool-okat a megadott mennyiségű, adott objektumot objektumok.
 Majd ad egy objektumot a poolból, amikor lekéri a másik script.
 */
 

@@ -1,7 +1,7 @@
 /*
 Ez a script a player irányitását kezeli, hogy lekövesse a mouse-t.
-Bal klickre lő eggyet es a lövés hangját is lejátsza.
-Levonja az életet, ha szukséges.
+Bal klikkre kattintva lő egyet es a lövés hangját is lejátsza.
+Levonja az életet, ütközéskor.
 */
 
 using UnityEngine;
@@ -24,7 +24,7 @@ public class PlayerControllerScript : MonoBehaviour
     {
         
 
-        if(UIManager.Instance.gameState != UIManager.GameState.Paused && UIManager.Instance.gameState != UIManager.GameState.GameOver)
+        if(UIManager.Instance.gameState == UIManager.GameState.Neutral)
         {
             MovePlayer();
             Shoot();
@@ -63,7 +63,7 @@ public class PlayerControllerScript : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collider)
     {
-        if(UIManager.Instance.gameState != UIManager.GameState.Paused && UIManager.Instance.gameState != UIManager.GameState.GameOver)
+        if(UIManager.Instance.gameState == UIManager.GameState.Neutral)
             if(collider.CompareTag("UFO") || collider.CompareTag("Meteor") || collider.CompareTag("Bird") || collider.CompareTag("EnemyProjectile"))
                 UIManager.Instance.InactivateHealth();
 

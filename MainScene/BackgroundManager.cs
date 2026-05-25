@@ -1,6 +1,6 @@
 /*
 Ez a script a hátteret kezeli, folyamatosan mozgatja lefele.
-Amikor eléri a limitet akkor visszahelyezi a legfelső panelt a legalsó panel alá.
+Amikor eléri a limitet akkor visszahelyezi a legelső panelt a legfalső panel elé.
 */
 
 
@@ -26,7 +26,7 @@ public class BackgroundManager : MonoBehaviour
 
     void Update()
     {
-        if(UIManager.Instance.gameState != UIManager.GameState.Paused && UIManager.Instance.gameState != UIManager.GameState.GameOver)
+        if(UIManager.Instance.gameState == UIManager.GameState.Neutral)
             Moving();
     }
 
