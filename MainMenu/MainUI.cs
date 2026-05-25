@@ -1,3 +1,8 @@
+/*
+Ez a script a főmenü UI-t kezeli.
+A játék indítását, a nehézségi szint kiválasztását és a kilépést kezeli.
+*/
+
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
