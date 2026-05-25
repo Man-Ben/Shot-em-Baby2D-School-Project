@@ -1,8 +1,3 @@
-/*
-Ez a script az UFO-k lőését kezeli.
-Az UFO-k a nehézségi szinttől függően lőnek, és a lövés hangját is lejátsza.
-*/
-
 using System.Collections;
 using UnityEngine;
 
