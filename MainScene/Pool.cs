@@ -1,3 +1,8 @@
+/*
+Létrehozza a pool-okat a megadott objektumokból és mennyiségből.
+Majd ad egy objektumot a poolból, amikor lekéri a másik script.
+*/
+
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,15 +12,21 @@ public class Pool : MonoBehaviour
 
     public List<GameObject> pooledObstacles;
     public List<GameObject> pooledProjectiles;
+    public List<GameObject> pooledEnemyProjectiles;
+    public List<ParticleSystem> pooledParticles;
     
     [SerializeField] GameObject projectile;
+    [SerializeField] GameObject enemyProjectile;
+
+    [SerializeField] ParticleSystem explosionParticle;
 
     [SerializeField] List<GameObject> obstacles;
 
     public enum PoolState
     {
         PoolProjectile,
-        PoolObstacles
+        PoolObstacles,
+        PoolEnemyProjectile
     }
 
     public static Pool Instance {get; private set;}
@@ -30,16 +41,19 @@ public class Pool : MonoBehaviour
 
         Instance = this;
 
-        Pooling(projectile, 10, pooledProjectiles);
+        PoolingObjects(projectile, 10, pooledProjectiles);
+        PoolingObjects(enemyProjectile, 10, pooledEnemyProjectiles);
 
         foreach(var obstacle in obstacles)
-            Pooling(obstacle, 30, pooledObstacles);
+            PoolingObjects(obstacle, 30, pooledObstacles);
+
+        PoolingParticles(explosionParticle, 10, pooledParticles);
 
     }
 
-    void Pooling(GameObject objectToPool, int amountToPool, List<GameObject> pooledList)
+    void PoolingObjects(GameObject objectToPool, int amountToPool, List<GameObject> pooledList)
     {
-     GameObject tmp;
+        GameObject tmp;
 
         for(int i = 0; i < amountToPool; i++)
         {
@@ -49,7 +63,19 @@ public class Pool : MonoBehaviour
         }   
     }
 
-    GameObject GetRandomPooled()
+    void PoolingParticles(ParticleSystem particleToPool, int amountToPool, List<ParticleSystem> pooledParticle)
+    {
+        ParticleSystem tmp;
+
+        for(int i = 0; i < amountToPool; i++)
+        {
+            tmp = Instantiate(particleToPool);
+            tmp.gameObject.SetActive(false);
+            pooledParticle.Add(tmp);
+        } 
+    }
+
+    GameObject GetRandomPooledObstacle()
     {
         int index = Random.Range(0, pooledObstacles.Count);
         if(!pooledObstacles[index].activeSelf)
@@ -61,11 +87,20 @@ public class Pool : MonoBehaviour
         return null;
     }
 
-    GameObject GetPooled()
+    GameObject GetPooledProjectile(List<GameObject> pooled)
     {
         for(int i = 0; i < 10; i++)
-            if(!pooledProjectiles[i].activeSelf)
-                return pooledProjectiles[i];
+            if(!pooled[i].activeSelf)
+                return pooled[i];
+
+        return null;
+    }
+
+    public ParticleSystem GetExplosion()
+    {
+        for(int i = 0; i < 10; i++)
+            if(!pooledParticles[i].gameObject.activeSelf)
+                return pooledParticles[i];
 
         return null;
     }
@@ -76,10 +111,11 @@ public class Pool : MonoBehaviour
         switch(poolState)
         {
             case PoolState.PoolObstacles:
-                return GetRandomPooled();
-            
+                return GetRandomPooledObstacle();
             case PoolState.PoolProjectile:
-                return GetPooled();
+                return GetPooledProjectile(pooledProjectiles);
+            case PoolState.PoolEnemyProjectile:
+                return GetPooledProjectile(pooledEnemyProjectiles);
         }
 
         return null;

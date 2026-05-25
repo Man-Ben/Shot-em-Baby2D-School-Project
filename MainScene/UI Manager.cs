@@ -1,3 +1,7 @@
+/*
+Ez a script az UI-t kezeli, a játék állapotát, a pontszámot és az életet.
+*/
+
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -53,7 +57,11 @@ public class UIManager : MonoBehaviour
         OnEscPressed();
 
         if(score == -100)
+        {
             GameOverMessage();
+            gameState = GameState.GameOver;
+        }
+
     }
 
     void AddListenerToButtons()
@@ -86,8 +94,11 @@ public class UIManager : MonoBehaviour
         remainingHP = totalHP - 1;
     }
 
-    public void AddScore()
+    public void AddScore(bool isUFO)
     {
+        if(isUFO)
+            score += scoreToAdd*2;
+        
         score += scoreToAdd;
 
         scoreText.text = $"Score: {score}";
@@ -126,23 +137,21 @@ public class UIManager : MonoBehaviour
 
 
     void GameOverMessage()
+    {
+        gameOverMenu.SetActive(true);
+        quitButton.gameObject.SetActive(true);
+    }
+
+    void OnEscPressed()
+    {
+        if(Input.GetKeyDown(KeyCode.Escape))
         {
-            gameOverMenu.SetActive(true);
+            gameState = GameState.Paused;
+
+            pausedMenu.SetActive(true);
             quitButton.gameObject.SetActive(true);
         }
-
-        void OnEscPressed()
-        {
-            if(Input.GetKeyDown(KeyCode.Escape))
-            {
-                gameState = GameState.Paused;
-
-                pausedMenu.SetActive(true);
-                quitButton.gameObject.SetActive(true);
-            }
-        }
-
-
+    }
 
     void OnContinueButtonPressed()
     {

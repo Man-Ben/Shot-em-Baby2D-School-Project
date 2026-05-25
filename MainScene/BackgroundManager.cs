@@ -1,3 +1,9 @@
+/*
+Ez a script a hátteret kezeli, folyamatosan mozgatja lefele.
+Amikor eléri a limitet akkor visszahelyezi a legfelső panelt a legalsó panel alá.
+*/
+
+
 using System.Collections.Generic;
 using UnityEngine;
 
