@@ -1,3 +1,8 @@
+/*
+Ez a script random spawnolja az akadályokat a megadott intervallumokban.
+A akadályok száma a nehézségi szinttől függ.
+*/
+
 using System.Collections;
 using UnityEngine;
 

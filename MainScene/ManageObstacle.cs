@@ -1,3 +1,8 @@
+/*
+Ez a script az akadályok viselkedését kezeli.
+Folyamatosan mozgatja lefelé.
+*/
+
 using UnityEngine;
 
 public class ManageObstacle : MonoBehaviour

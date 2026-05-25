@@ -1,3 +1,9 @@
+/*
+Ez a script a robbanásokat kezeli, amikor a lövedék eltalálja a célpontot.
+Lejátsza a robbanás habgját és megjeleniti a robbanás effektet a megadott koordinátán.
+Ez után visszahelyezi a robbanás effectet a poolba.
+*/
+
 using System.Collections;
 using UnityEngine;
 

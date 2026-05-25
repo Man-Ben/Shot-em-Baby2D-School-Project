@@ -1,3 +1,8 @@
+/*
+Létrehozza a pool-okat a megadott objektumokból és mennyiségből.
+Majd ad egy objektumot a poolból, amikor lekéri a másik script.
+*/
+
 using System.Collections.Generic;
 using UnityEngine;
 

@@ -1,3 +1,8 @@
+/*
+Ez a script a lövedékek viselkedését kezeli.
+A player és az UFO lövedékei is ezt használják.
+*/
+
 using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;

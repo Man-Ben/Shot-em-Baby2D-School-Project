@@ -1,3 +1,7 @@
+/*
+Ez a script az UI-t kezeli, a játék állapotát, a pontszámot és az életet.
+*/
+
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;

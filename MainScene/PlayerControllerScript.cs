@@ -1,3 +1,9 @@
+/*
+Ez a script a player irányitását kezeli, hogy lekövesse a mouse-t.
+Bal klickre lő eggyet es a lövés hangját is lejátsza.
+Levonja az életet, ha szukséges.
+*/
+
 using UnityEngine;
 
 
