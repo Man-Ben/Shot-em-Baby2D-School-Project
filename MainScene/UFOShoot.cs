@@ -5,7 +5,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class UFOShoot : MonoBehaviour
+public class UfoShoot : MonoBehaviour
 {
     [SerializeField] AudioClip gunSound;
 
