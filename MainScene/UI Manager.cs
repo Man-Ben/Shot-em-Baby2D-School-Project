@@ -77,7 +77,7 @@ public class UIManager : MonoBehaviour
         {
             case MainUI.Difficulty.Easy:
             totalHP = 3;
-            scoreToAdd = 20;
+            scoreToAdd = 15;
             break;
 
             case MainUI.Difficulty.Normal:
